@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://8ynmffnaf6xd"]
+
+[node name="reticle" type="Polygon2D" unique_id=2078387007]
+polygon = PackedVector2Array(-5, 0, 0, 4, 5, 0, 0, -4)

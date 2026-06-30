@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://efu62kop3s6y"]
+
+[ext_resource type="Script" uid="uid://bajabxkokqyui" path="res://character/player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://m5fysu3bbdh4" path="res://character/sword.tscn" id="2_monf5"]
+[ext_resource type="Texture2D" uid="uid://bj6j3sdq8m08r" path="res://character/PlayerCharacter.png" id="3_aypkh"]
+[ext_resource type="PackedScene" uid="uid://8ynmffnaf6xd" path="res://character/reticle.tscn" id="4_hhoun"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkndl"]
+size = Vector2(6, 15)
+
+[sub_resource type="Animation" id="Animation_aypkh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visuals/sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(22, 2.0000002)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("visuals/sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hhoun"]
+resource_name = "sword_swing"
+length = 0.27
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visuals/sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(22, 2.0000002), Vector2(22, -14.000001), Vector2(5.684342e-14, -21), Vector2(22, -14.000001), Vector2(22, 2.0000002)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("visuals/sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.6175076, -1.5707964, -0.6175076, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bdyh8"]
+_data = {
+&"RESET": SubResource("Animation_aypkh"),
+&"sword_swing": SubResource("Animation_hhoun")
+}
+
+[node name="player" type="CharacterBody2D" unique_id=460798726 groups=["player"]]
+script = ExtResource("1_4flbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1856299059]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_xkndl")
+
+[node name="visuals" type="Node2D" parent="." unique_id=1654430446]
+unique_name_in_owner = true
+
+[node name="sword" parent="visuals" unique_id=1063854763 instance=ExtResource("2_monf5")]
+unique_name_in_owner = true
+position = Vector2(22, 2.0000002)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="visuals" unique_id=2050202707]
+unique_name_in_owner = true
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_bdyh8")
+
+[node name="Sprite2D" type="Sprite2D" parent="visuals" unique_id=1916456802]
+texture_filter = 1
+texture_repeat = 1
+texture = ExtResource("3_aypkh")
+
+[node name="reticle" parent="visuals" unique_id=2078387007 instance=ExtResource("4_hhoun")]
+unique_name_in_owner = true
+position = Vector2(6.273918, -6.468708)
+
+[node name="Timer" type="Timer" parent="." unique_id=1436497497]
+unique_name_in_owner = true
+wait_time = 0.15
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="." unique_id=212177204]
+one_shot = true
+
+[node name="Timer3" type="Timer" parent="." unique_id=42334170]
+unique_name_in_owner = true
+wait_time = 0.204
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1621913632]
+
+[connection signal="animation_finished" from="visuals/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer3" to="." method="_on_timer_3_timeout"]

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://m5fysu3bbdh4"]
+
+[ext_resource type="Script" uid="uid://b3sqt2j716urj" path="res://character/sword.gd" id="1_74bdg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8xsq"]
+size = Vector2(8, 2)
+
+[node name="sword" type="Area2D" unique_id=1063854763]
+scale = Vector2(2.6378758, 2.1590986)
+script = ExtResource("1_74bdg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1749737304]
+shape = SubResource("RectangleShape2D_o8xsq")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=935582374]
+polygon = PackedVector2Array(-4, -1, 4, -1, 4, -1, 4, 1, -4, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
