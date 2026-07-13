@@ -1,6 +1,6 @@
 extends Area2D
 
-const KNOCK_BACK_FORCE = 500
+const KNOCK_BACK_FORCE = 900 #sends enemy upwards
 
 var can_damage = false
 
@@ -9,6 +9,8 @@ var can_damage = false
 @onready var marker = get_tree().get_first_node_in_group("spawn_point")
 @onready var enemy_scene = preload("res://enemy/enemy.tscn")
 @onready var marker_2d = $"../../../Marker2D"
+
+
 
 
 func _on_body_entered(body):
@@ -25,4 +27,3 @@ func _on_body_entered(body):
 			get_tree().current_scene.call_deferred("add_child", spawn_enemy)
 			body.enemy_died.emit()
 			body.call_deferred("queue_free")
-		print("Enemy health is ", body.health)

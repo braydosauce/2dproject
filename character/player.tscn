@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://bajabxkokqyui" path="res://character/player.gd" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://m5fysu3bbdh4" path="res://character/sword.tscn" id="2_monf5"]
-[ext_resource type="Texture2D" uid="uid://bj6j3sdq8m08r" path="res://character/PlayerCharacter.png" id="3_aypkh"]
+[ext_resource type="Texture2D" uid="uid://vtx7l0kwyij0" path="res://character/PlayerLookRight.png" id="3_hhoun"]
 [ext_resource type="PackedScene" uid="uid://8ynmffnaf6xd" path="res://character/reticle.tscn" id="4_hhoun"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xkndl"]
-size = Vector2(6, 15)
+size = Vector2(10, 18)
 
 [sub_resource type="Animation" id="Animation_aypkh"]
 length = 0.001
@@ -70,10 +70,10 @@ _data = {
 }
 
 [node name="player" type="CharacterBody2D" unique_id=460798726 groups=["player"]]
+motion_mode = 1
 script = ExtResource("1_4flbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1856299059]
-position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_xkndl")
 
 [node name="visuals" type="Node2D" parent="." unique_id=1654430446]
@@ -91,11 +91,13 @@ libraries/ = SubResource("AnimationLibrary_bdyh8")
 [node name="Sprite2D" type="Sprite2D" parent="visuals" unique_id=1916456802]
 texture_filter = 1
 texture_repeat = 1
-texture = ExtResource("3_aypkh")
+position = Vector2(10, -9)
+scale = Vector2(1.09375, 1.109375)
+texture = ExtResource("3_hhoun")
 
 [node name="reticle" parent="visuals" unique_id=2078387007 instance=ExtResource("4_hhoun")]
 unique_name_in_owner = true
-position = Vector2(6.273918, -6.468708)
+position = Vector2(18, -12)
 
 [node name="Timer" type="Timer" parent="." unique_id=1436497497]
 unique_name_in_owner = true
@@ -103,6 +105,7 @@ wait_time = 0.15
 one_shot = true
 
 [node name="Timer2" type="Timer" parent="." unique_id=212177204]
+wait_time = 0.4
 one_shot = true
 
 [node name="Timer3" type="Timer" parent="." unique_id=42334170]
@@ -112,6 +115,17 @@ one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1621913632]
 
+[node name="Label" type="Label" parent="." unique_id=363635117]
+z_index = 83
+offset_left = -6.0
+offset_top = -16.0
+offset_right = 34.0
+offset_bottom = 7.0
+scale = Vector2(0.28000307, 0.27999878)
+text = "100"
+horizontal_alignment = 1
+
 [connection signal="animation_finished" from="visuals/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
 [connection signal="timeout" from="Timer3" to="." method="_on_timer_3_timeout"]
